@@ -1,0 +1,27 @@
+---
+# NOTE: eureka-service must already exist as a service in the current space.
+#         cf create-service p-service-registry standard eureka-service
+#       traderdb must be an existing MySQL database
+#         cf create-service p-mysql 100mb-dev traderdb
+#
+timeout: 180
+instances: 1
+memory: 512M
+env:
+  SPRING_PROFILES_DEFAULT: cloud
+  JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+applications:
+- name: eureka-server
+  path: registryServer/build/libs/registry-0.2.jar
+- name: quotes
+  path: springboottrades-quotes/build/libs/quotes-0.2.jar
+  services: [ eureka-service ]
+- name: accounts-ci
+  path: springboottrades-accounts/build/libs/accounts-0.2.jar
+  services: [ eureka-service, traderdb ]
+- name: portfolio-ci
+  path: springboottrades-portfolio/build/libs/portfolio-0.2.jar
+  services: [ eureka-service, traderdb ]
+- name: webtrader-ci
+  path: springboottrades-web/build/libs/web-0.2.jar
+  services: [ eureka-service ]
