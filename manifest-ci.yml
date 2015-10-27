@@ -1,8 +1,13 @@
 ---
-# NOTE: eureka-service must already exist as a service in the current space.
-#         cf create-service p-service-registry standard eureka-service
-#       traderdb must be an existing MySQL database
-#         cf create-service p-mysql 100mb-dev traderdb
+# NOTES:
+#  1. This manifest only works when run from concourse - see ci-ultimate/ci.yml
+#  2  traderdb must be setup as a MySQL database
+#       cf create-service p-mysql 100mb-dev traderdb
+#  3. The eureka-service must already exist as a service in the current space.
+#     Either use the Spring Cloud services:  
+#       cf create-service p-service-registry standard eureka-service
+#     Or, uncomment the eureka-server below, deploy and use cups
+#       cf cups eureka-service -p '{"uri":"eureka-server.pcfdemo.info"}'
 #
 timeout: 180
 instances: 1
@@ -11,17 +16,18 @@ env:
   SPRING_PROFILES_DEFAULT: cloud
   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
+# eureka-server not needed if using Spring Cloid services
 - name: eureka-server
-  path: registryServer/build/libs/registry-0.2.jar
+  path: cf-spring-trader-repo/registryServer/build/libs/registry-0.2.jar
 - name: quotes
-  path: springboottrades-quotes/build/libs/quotes-0.2.jar
+  path: cf-spring-trader-repo/springboottrades-quotes/build/libs/quotes-0.2.jar
   services: [ eureka-service ]
 - name: accounts-ci
-  path: springboottrades-accounts/build/libs/accounts-0.2.jar
+  path: cf-spring-trader-repo/springboottrades-accounts/build/libs/accounts-0.2.jar
   services: [ eureka-service, traderdb ]
 - name: portfolio-ci
-  path: springboottrades-portfolio/build/libs/portfolio-0.2.jar
+  path: cf-spring-trader-repo/springboottrades-portfolio/build/libs/portfolio-0.2.jar
   services: [ eureka-service, traderdb ]
 - name: webtrader-ci
-  path: springboottrades-web/build/libs/web-0.2.jar
+  path: cf-spring-trader-repo/springboottrades-web/build/libs/web-0.2.jar
   services: [ eureka-service ]

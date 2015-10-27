@@ -1,16 +1,19 @@
 = Quick Setup Instructions
 
-AWS PCF: https://console.pcf-demo.com
+AWS PCF: https://console.pcfdemo.info
 
 Demo needs two services, so run:
 
-cf create-service p-mysql 100mb-dev traderdb
-
-cf cups eureka-service -p '{"uri":"eureka-server.pcfdemo.info"}'
+```
+  cf create-service p-mysql 100mb-dev traderdb
+  cf cups eureka-service -p '{"uri":"eureka-server.pcfdemo.info"}'
+```
 
 To deploy:
 
-cf push -f manifest-ci.yml
+```
+  cf push -f manifest-ci.yml
+```
 
 This starts 5 applications, so be patient.
 
