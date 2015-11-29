@@ -8,7 +8,7 @@ We have already deployed the quote service in the [previous lab](lab_pushquote.m
 ### 2. Accounts service
 The accounts service has a dependency on a RDBMS database.
 
-**Cloud Foundry** provides a marketplace where administrators can enable certain services to be available to developers/operators. These services are called [*Managed services*](http://docs.pivotal.io/pivotalcf/devguide/services/#managed-services), in contrast to [*User-provided services*](http://docs.pivotal.io/pivotalcf/devguide/services/#user-provided-services) as we have seen [before](lab_userprovided.md).
+**Cloud Foundry** provides a marketplace where administrators can enable certain services to be available to developers/operators. These services are called [*Managed services*](http://docs.pivotal.io/pivotalcf/devguide/services/#managed-services), in contrast to [*User-provided services*](http://docs.pivotal.io/pivotalcf/devguide/services/#user-provided-services).
 
 There are a couple of ways to create a service in **Cloud Foundry**. For this service we will explore using the UI to create the service, but you can also create it using the CLI.
 
@@ -16,7 +16,7 @@ There are a couple of ways to create a service in **Cloud Foundry**. For this se
 
 1. Log in to the Apps Manager through your browser. The URL will be: `https://console.<your_cloud_foundry_url>/`
 
-Go the *Marketplace* and choose a MySQL service. In Pivotal Web Services this will be the "ClearDB MySQL Database". Depending on your cloud provider, you may have multiple plans to choose from. For this exercise, the smallest *free* plan will suffice.
+Go the *Marketplace* and choose a MySQL service. In Pivotal Web Services we could use the "ClearDB MySQL Database" service. In Pivotal Cloud Foundry we can use the "MySQL for Pivotal Cloud Foundry" service. Depending on your cloud provider, you may have multiple plans to choose from. For this exercise, the smallest *free* plan will suffice.
 
 When prompted for the name of the service, insert **"traderdb"** and bind it to the space you are using to deploy your applications.
 
@@ -32,7 +32,7 @@ The portfolio service has a dependency on 3 services:
 
 For the RDBMS, we will be re-using the service created for the *Accounts service*. This is for simplicity of these exercises, and it is possible and probably favorable to create a new DB service specific to the portfolio service.
 
-The portfolio service also connects to the quote and account service. We are using a registry service to automatically and dynamically discover the other services. As such we only need the *User-provided service* you created [before](lab_userprovided.md).
+The portfolio service also connects to the quote and account service. We are using a registry service to automatically and dynamically discover the other services. The other services are discovered automatically use the discovery service.
 
 ## 4. Web service
 The Web service is the UI front-end and also acts as an API aggregator. As such, it uses all the other microservices in the project, i.e. The quote, account and portfolio services.
@@ -42,16 +42,44 @@ Similarly to above, we will be using the registry service to retrieve informatio
 
 ## 5. Push all the applications.
 
-Now that we have all the required services created, let's push all the applications in one go. The **Cloud Foundry** manifest file allows us to [define multiple applications in a single file](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/manifest.html#multi-apps)
+Now that we have all the required services created, let's push all the services.
 
-### Exercise
-1. Create a manifest file that will push the accounts, portfolio and web microservices in one go.
+### Exercises
 
-> Make sure to use unique routes for all the apps. i.e. ``<app-name>-<initials>``
+1. Push each of the services to the platform.
 
-2. Use the CLI to push all applications using the manifest file created.
+> How could you push all the services in one go?
+> The **Cloud Foundry** manifest file allows us to [define multiple applications in a single file](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/manifest.html#multi-apps)
+
+2. When the script has finished, set the `CF_TARGET` environment variable in both applications to the API endpoint of your Elastic Runtime instance (as in `https://api.example.com`), then restage the applications so that the changes will take effect.
+  ```
+  $ cf set-env accounts CF_TARGET https://api.cloudfoundry.com
+  Setting env variable 'CF_TARGET' to 'https://api.cloudfoundry.com' for app accounts in org myorg / space outer as user...
+  OK
+  TIP: Use 'cf restage' to ensure your env variable changes take effect
+  $ cf restage accounts
+  ```
+  > You only need to do this once per application.
 
 Once completed, go to the URL of the Web service in your browser.
+
+##Deploying without Spring Cloud Services
+
+  If Spring Cloud Services are not available, you should have pushed an instance of the [discovery service](https://github.com/dpinto-pivotal/cf-SpringBootTrader-extras) to the cloud and you should already have a [*User-provided service*](http://docs.pivotal.io/pivotalcf/devguide/services/user-provided.html).
+
+  Thus all you'll need to do is push the applications as above. Ensure you create the **traderdb** RDBMS service.
+
+  ### Exercise
+    1. push the applications
+
+##Running it locally
+  To run the service locally, you can use the gradle wrapper script as such:
+
+  ```
+  gradlew :springboottrades-<service>:bootRun
+  ```
+  The services should start up and bind to the discovery service running locally.
+
 
 # Summary
 Congratulations! You have now deployed a set of microservices to the cloud that interact with each other.
