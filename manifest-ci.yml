@@ -16,7 +16,7 @@ env:
   SPRING_PROFILES_DEFAULT: cloud
   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
-# eureka-server not needed if using Spring Cloid services
+# eureka-server not needed if using Spring Cloud services
 - name: eureka-server
   path: cf-spring-trader-repo/registryServer/build/libs/registry-0.2.jar
 - name: quotes
