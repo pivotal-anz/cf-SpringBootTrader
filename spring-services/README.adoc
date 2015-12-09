@@ -22,20 +22,19 @@ Maven will automatically download all dependencies. This may take a few moments.
 == Deploying to Pivotal Cloud Foundry with Spring Cloud Services
 
 . Run `cf push` to create the services that you need:
+This will push a Spring Cloud Config Server, a Eureka server, and a Hystrix Dashboard, all with random routes.
 +
 ----
 $ cf push -f manifest-services.yml
-
 ----
+
 
 . In the Pivotal Cloud Foundry App Manager console, click on the *Manage* links for the *Config Server*. Once the service is initialized and the web form appears, paste https://github.com/pivotal-anz/cf-SpringBootTrader-config.git into the *Git URI* field and click *Submit*.
 
 . Also click on the *Manage* links for the *Service Registry* and *Circuit Breaker*. Make sure the services are finished initializing before you proceed.
 
 +
-This will push a Spring Cloud Config Server, a Eureka server, and a Hystrix Dashboard, all with random routes.
-
-. then create User Provided Services using the URI's created when you pushed the apps:
+. Then create User Provided Services using the URI's created when you pushed the apps:
 +
 ----
 cf cups config-service -p '{"uri":"http://config-server-fluxional-suttee.cfapps.io"}'
