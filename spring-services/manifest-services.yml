@@ -1,0 +1,13 @@
+---
+memory: 384M
+instances: 1
+applications:
+- name: config-server
+  random-route: true
+  path: config-server/target/config-server-0.0.1-SNAPSHOT.jar
+- name: discovery-service
+  random-route: true
+  path: eureka/target/eureka-0.0.1-SNAPSHOT.jar
+- name: circuit-breaker-dashboard
+  random-route: true
+  path: hystrix-dashboard/target/hystrix-dashboard-0.0.1-SNAPSHOT.jar

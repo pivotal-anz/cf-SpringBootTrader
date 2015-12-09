@@ -9,6 +9,6 @@ env:
     JBP_CONFIG_OPEN_JDK_JRE: '[memory_calculator: { memory_sizes: { metaspace: 100m }}]'
 applications:
 - name: portfolio
-  #random-route: true
+  random-route: true
   path: ${path}portfolio-${version}.jar
   services: [ traderdb, discovery-service, circuit-breaker-dashboard, config-server ]

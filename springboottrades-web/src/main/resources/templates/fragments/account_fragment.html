@@ -30,7 +30,9 @@
 					</tr>
 					<tr>
 						<td>Open Balance</td>
-						<td th:text="${#numbers.formatDecimal(account.openbalance, 0, 'COMMA', 2, 'POINT')}">user</td>
+						<!-- Workaround for this error: Error formatting decimal with minimum integer digits = 0, thousands point type = COMMA, decimal digits = 2 and decimal point type = POINT (fragments/account_fragment:33 -->
+						<!-- td th:text="${#numbers.formatDecimal(account.openbalance, 0, 'COMMA', 2, 'POINT')}">user</td-->
+						<td th:text="${account.openbalance}">user</td>
 					</tr>
 				</table>
 			</div>
