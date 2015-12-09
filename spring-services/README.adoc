@@ -21,7 +21,7 @@ Maven will automatically download all dependencies. This may take a few moments.
 
 == Deploying to Pivotal Cloud Foundry with Spring Cloud Services
 
-. Run `scripts/create-services.sh` to create the services that you need:
+. Run `cf push` to create the services that you need:
 +
 ----
 $ cf push -f manifest-services.yml
@@ -35,7 +35,7 @@ $ cf push -f manifest-services.yml
 +
 This will push a Spring Cloud Config Server, a Eureka server, and a Hystrix Dashboard, all with random routes.
 
-. Edit `scripts/create_services.sh` to add the random routes that were generated for you:
+. then create User Provided Services using the URI's created when you pushed the apps:
 +
 ----
 cf cups config-service -p '{"uri":"http://config-server-fluxional-suttee.cfapps.io"}'
@@ -43,14 +43,3 @@ cf cups service-registry -p '{"uri":"http://eureka-unprevalent-toper.cfapps.io"}
 cf cs elephantsql turtle fortunes-db
 ----
 
-. Run `scripts/create-services.sh` to create the services that you need:
-+
-----
-$ scripts/create_services.sh
-Creating user provided service config-service in org platform-eng / space nfjs-workshop as mstine@pivotal.io...
-OK
-Creating user provided service service-registry in org platform-eng / space nfjs-workshop as mstine@pivotal.io...
-OK
-Creating service fortunes-db in org platform-eng / space nfjs-workshop as mstine@pivotal.io...
-OK
-----
