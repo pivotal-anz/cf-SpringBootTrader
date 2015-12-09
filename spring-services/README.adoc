@@ -19,7 +19,7 @@ $ mvn package
 Maven will automatically download all dependencies. This may take a few moments.
 
 
-== Deploying to Pivotal Cloud Foundry with Spring Cloud Services
+== Deploying to Pivotal Cloud Foundry 
 
 . Run `cf push` to create the services that you need:
 This will push a Spring Cloud Config Server, a Eureka server, and a Hystrix Dashboard, all with random routes.
@@ -42,3 +42,30 @@ cf cups service-registry -p '{"uri":"http://eureka-unprevalent-toper.cfapps.io"}
 cf cs elephantsql turtle fortunes-db
 ----
 
+== Running Locally
+
+. Run the config-server as a Spring Boot 
++
+----
+$ cd config-server
+$ mvn spring-boot:run
+----
+
+. Run the eureka server as a Spring Boot 
++
+----
+$ cd eureka
+$ mvn spring-boot:run
+----
+
+. Run the eureka server as a Spring Boot 
++
+----
+$ cd hystrix-dashboard
+$ mvn spring-boot:run
+----
+
+You could also do
+----
+`java -jar target/nameOfService.jar` instead of `mvn spring-boot:run`
+----
