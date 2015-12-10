@@ -52,21 +52,21 @@ cf cs elephantsql turtle fortunes-db
 
 == Running Locally
 
-. Run the config-server as a Spring Boot 
+. Run the config-server as a Spring Boot app
 +
 ----
 $ cd config-server
 $ mvn spring-boot:run
 ----
 
-. Run the eureka server as a Spring Boot 
+. Run the eureka server as a Spring Boot app
 +
 ----
 $ cd eureka
 $ mvn spring-boot:run
 ----
 
-. Run the eureka server as a Spring Boot 
+. Run the eureka server as a Spring Boot app
 +
 ----
 $ cd hystrix-dashboard
