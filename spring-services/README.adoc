@@ -17,7 +17,13 @@ $ git clone https://github.com/pivotal-anz/cf-SpringBootTrader.git
 $ cd cf-SpringBootTrader/spring-services
 ----
 +
-
+. To import the project into STS or Eclipse do:
++
+----
+$ mvn eclipse:eclipse
+----
++
+Then import into STS or Eclipse
 . Using Maven, build and package the application:
 +
 ----
