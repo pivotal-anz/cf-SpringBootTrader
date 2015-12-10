@@ -37,9 +37,9 @@ $ cf push -f manifest-services.yml
 ----
 
 
-. In the Pivotal Cloud Foundry App Manager console, click on the links for the *Config Server*. Once the service is initialized and the web form appears, paste https://github.com/pivotal-anz/cf-SpringBootTrader-config.git into the *Git URI* field and click *Submit*.
+. In the Pivotal Cloud Foundry App Manager console, click on the link for the *Config Server*. Once the service is initialized and the web form appears, paste https://github.com/pivotal-anz/cf-SpringBootTrader-config.git into the *Git URI* field and click *Submit*.
 
-. Also click on the *Manage* links for the *Service Registry* and *Circuit Breaker*. Make sure the services are finished initializing before you proceed.
+. Also click on the link for the *Service Registry* and *Circuit Breaker*. Make sure the services are finished initializing before you proceed.
 
 +
 . Then create User Provided Services using the URI's created when you pushed the apps:
