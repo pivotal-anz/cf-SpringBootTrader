@@ -72,7 +72,7 @@ $ cd eureka
 $ mvn spring-boot:run
 ----
 
-. Run the eureka server as a Spring Boot app
+. Run the Hystrix server as a Spring Boot app
 +
 ----
 $ cd hystrix-dashboard
